@@ -741,7 +741,7 @@ optional_policy(`
 ')
 
 optional_policy(`
-	# we have /run/user/$USER/dconf
+	# we have /run/user/$USER/dconf 
 	gnome_delete_home_config(systemd_tmpfiles_t)
 	gnome_delete_home_config_dirs(systemd_tmpfiles_t)
 	gnome_setattr_home_config_dirs(systemd_tmpfiles_t)
@@ -873,21 +873,21 @@ optional_policy(`
 #
 # Hostnamed policy
 #
-# allow systemd_hostnamed_t self:capability sys_admin;
+allow systemd_hostnamed_t self:capability sys_admin;
 dontaudit systemd_hostnamed_t self:capability sys_ptrace;
 
 allow systemd_hostnamed_t self:fifo_file rw_fifo_file_perms;
 allow systemd_hostnamed_t self:unix_stream_socket create_stream_socket_perms;
 allow systemd_hostnamed_t self:unix_dgram_socket create_socket_perms;
 
-# manage_files_pattern(systemd_hostnamed_t, hostname_etc_t, hostname_etc_t)
-# manage_lnk_files_pattern(systemd_hostnamed_t, hostname_etc_t, hostname_etc_t)
-# files_etc_filetrans(systemd_hostnamed_t, hostname_etc_t, file)
-# init_pid_filetrans(systemd_hostnamed_t, hostname_etc_t, file )
+manage_files_pattern(systemd_hostnamed_t, hostname_etc_t, hostname_etc_t)
+manage_lnk_files_pattern(systemd_hostnamed_t, hostname_etc_t, hostname_etc_t)
+files_etc_filetrans(systemd_hostnamed_t, hostname_etc_t, file)
+init_pid_filetrans(systemd_hostnamed_t, hostname_etc_t, file )
 
-# kernel_dgram_send(systemd_hostnamed_t)
-# kernel_read_xen_state(systemd_hostnamed_t)
-# kernel_read_sysctl(systemd_hostnamed_t)
+kernel_dgram_send(systemd_hostnamed_t)
+kernel_read_xen_state(systemd_hostnamed_t)
+kernel_read_sysctl(systemd_hostnamed_t)
 
 dev_write_kmsg(systemd_hostnamed_t)
 dev_read_sysfs(systemd_hostnamed_t)
